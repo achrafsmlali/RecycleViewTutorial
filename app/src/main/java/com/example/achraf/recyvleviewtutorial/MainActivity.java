@@ -22,14 +22,24 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
+        //creation de l'adaptter on lui passant la lite des film.
         mAdapter = new MoviesAdapter(movieList);
+
+        //Définir le layoutManager pour positionner les éléments
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);//TODO see wath his doing
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        //ajouter une ligne qui sépare deux item
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+        // Attachez l'adaptateur au recyclerview .
         recyclerView.setAdapter(mAdapter);
 
+        //methode qui permet d'initier la liste des film
         prepareMovieData();
     }
+
+    //methode qui permet
     private void prepareMovieData() {
         Movie movie = new Movie("Mad Max: Fury Road", "Action & Adventure", "2015");
         movieList.add(movie);
@@ -79,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         movie = new Movie("Guardians of the Galaxy", "Science Fiction & Fantasy", "2014");
         movieList.add(movie);
 
+        //notifier que les donnée sont change pour fair un refresh des donnne
         mAdapter.notifyDataSetChanged();
     }
 }
