@@ -1,11 +1,15 @@
 package com.example.achraf.recyvleviewtutorial;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -13,9 +17,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     //Liste des film qui seront affiche
     private List<Movie> moviesList;
 
+    public Context myContext ;
+
+
     //construceteur
-    public MoviesAdapter(List<Movie> moviesList) {
+    public MoviesAdapter(Context context,List<Movie> moviesList) {
+
         this.moviesList = moviesList;
+        myContext = context;
+
     }
 
     //cette class permet de fournir une référence directe à chacune des vues dans un élément de données
@@ -24,12 +34,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
         // Votre holder doit contenir une variable membre
         // pour toute vue qui sera définie lors du rendu de l'item
         public TextView title, year, genre;
+        // le layout  de l'item
+        public RelativeLayout parentLayout;
+
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             genre = (TextView) view.findViewById(R.id.genre);
             year = (TextView) view.findViewById(R.id.year);
+            parentLayout = (RelativeLayout) view.findViewById(R.id.parent_layout);
         }
     }
 
@@ -47,10 +61,20 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
     // onBindViewHolder ç'est la méthode qui permet d'insérer les données dans chaque item
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Movie movie = moviesList.get(position);
+        final Movie movie = moviesList.get(position);
         holder.title.setText(movie.getTitle());
         holder.genre.setText(movie.getGenre());
         holder.year.setText(movie.getYear());
+        //on ajoute un OnClickListener sur le layout de l'item
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(myContext,movie.getTitle(),Toast.LENGTH_LONG).show();
+                Log.d("TOAST","########################");
+
+                
+            }
+        });
     }
 
     // Retourne le nombre total d'éléments dans la liste

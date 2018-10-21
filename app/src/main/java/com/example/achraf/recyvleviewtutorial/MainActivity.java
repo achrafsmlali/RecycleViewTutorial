@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         //creation de l'adaptter on lui passant la lite des film.
-        mAdapter = new MoviesAdapter(movieList);
+        mAdapter = new MoviesAdapter(this.getBaseContext(), movieList);
 
         //Définir le layoutManager pour positionner les éléments
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
